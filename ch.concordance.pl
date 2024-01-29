@@ -36,7 +36,7 @@ print "...\n";
 
 my %correspondance;
 
-open my $fh_input, '<' , $inputfile || die "\nCannot open input file $inputfile\n";
+open (my $fh_input, '<' , $inputfile) || die "\nCannot open input file $inputfile\n";
 
 while (my $line = <$fh_input>) {
         chomp $line;
@@ -57,8 +57,8 @@ close $fh_input;
 # replace matches by regex actions and write output file                        #
 #################################################################################
 
-open my $fh_process, '<' , $processfile || die "\nCannot open file to process: $processfile\n";
-open my $fh_output, '>' , $processfile.'.tmp' || die "\nCannot write temp file\n";
+open (my $fh_process, '<' , $processfile) || die "\nCannot open file to process: $processfile\n";
+open (my $fh_output, '>' , $processfile.'.tmp') || die "\nCannot write temp file\n";
 
 
 while (my $inline = <$fh_process>) {
@@ -90,7 +90,7 @@ close $fh_output;
 # identify unmatched sets and write to seperate file                            #
 #################################################################################
 
-open my $fh_check, '<' , $processfile.'.tmp' || die "\nUnable to access $processfile.tmp for check routine\n";
+open (my $fh_check, '<' , $processfile.'.tmp') || die "\nUnable to access $processfile.tmp for check routine\n";
 
 my @url_sets;
 my @nourl_sets;
@@ -127,8 +127,8 @@ my @nourl_ids = grep !$urlid_hash{$_}, @nourl_sets_unique;
 
 
 
-open my $fh_reprocess, '<' , $processfile || die "\nCannot open file to process: $processfile\n";
-open my $fh_nourlfile, '>' , $processfile.'.rej' || die "\nCannot write outputfile for non-matching sets.\n";
+open (my $fh_reprocess, '<' , $processfile) || die "\nCannot open file to process: $processfile\n";
+open (my $fh_nourlfile, '>' , $processfile.'.rej') || die "\nCannot write outputfile for non-matching sets.\n";
 
 while (my $nourlline = <$fh_reprocess>) {
         chomp($nourlline);
@@ -144,8 +144,8 @@ close $fh_nourlfile;
 
 
 
-open my $fh_linremove, '<' , $processfile.'.tmp' || die "\nUnable to access $processfile.tmp for cleanup routine\n";
-open my $fh_final, '>' , $processfile.'.sed' || die "\nCannot write outputfile\n";
+open (my $fh_linremove, '<' , $processfile.'.tmp') || die "\nUnable to access $processfile.tmp for cleanup routine\n";
+open (my $fh_final, '>' , $processfile.'.sed') || die "\nCannot write outputfile\n";
 
 while (my $finalline = <$fh_linremove>) {
         chomp($finalline);
